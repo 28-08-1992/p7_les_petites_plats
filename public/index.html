@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <title>Les Petits Plats</title>
+</head>
+<body>
+    <header class="header">
+        <h1><img src="images/logo.svg" alt="Les petits plats" class="header__logo"></h1>
+    </header>
+    <main class="content">
+        <div class="search-group">
+            <div class="input-group-lg">
+                <input type="text" class="form-control rounded search-input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+                <span class="icon-inside"><i class="bi bi-search"></i></span>
+            </div>
+            <div class="container__tags mt-4 mb-4"></div>
+            <div class="container__inputs d-flex gap-4 tags">
+            </div>
+        </div>
+
+        <div>
+            <div class="container row mw-100 p-0"></div>
+        </div>
+    </main>
+    <script src="scripts/recipes.js"></script>
+    <script src="scripts/app.js" type="module"></script>
+    <script src="../Bootstrap/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
