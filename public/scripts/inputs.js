@@ -50,7 +50,7 @@ export class Input {
         this.iconChevron.classList.add(`bi-chevron-up`);
         this.iconChevron.classList.remove(`bi-chevron-down`);
         this.showList(this.refreshList());
-        this.spanChevron.removeEventListener(`click`, this.switchToLargeInput);
+        this.spanChevron.removeEventListener(`click`, this.switchToLargeInput);/////
         document.addEventListener(`click`, this.switchToSmallInput);
         this.inputGroup.addEventListener("click", e =>{
             e.stopPropagation();

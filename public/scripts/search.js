@@ -20,7 +20,7 @@ export class Search{
     set actualList(list){
         this.list = list.slice();
     }
-
+   
     searchRecipe = (inputTextValue)=>{
         if(inputTextValue.length >= 3){
             this.filterTag();
@@ -57,7 +57,7 @@ export class Search{
                     for(const recipe of allRecipes){
                         switch(tag.type){
                             case "ingredient":{
-                                recipe.ingredients.forEach(ingredient => {
+                                recipe.ingredients.map(ingredient => {
                                     if(ingredient.ingredient.toLowerCase() == tag.name){
                                         this.list.push(recipe);
                                     }
@@ -67,8 +67,9 @@ export class Search{
                             case "appliance": if(recipe.appliance.toLowerCase() == tag.name) this.list.push(recipe);
                             break;
                             case "ustensil": {
-                                recipe.ustensils.forEach(ustensil =>{
-                                    if(ustensil.toLowerCase() == tag.name) this.list.push(recipe);
+                                recipe.ustensils.map(ustensil =>{
+                                    if(ustensil.toLowerCase() == tag.name){ this.list.push(recipe);
+                                    }
                                 });
                             }
                         }
