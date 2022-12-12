@@ -16,7 +16,6 @@ export class Ingredients extends Input {
           refreshedList.push(ingredient.ingredient.toLowerCase());
       });
     }
-
     return refreshedList;
   };
 }
