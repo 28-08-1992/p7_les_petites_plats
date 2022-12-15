@@ -57,7 +57,7 @@ export class Search {
     }
   };
 
-  filterTag() {
+  filterTag() {      
     this.list = Recipe.allRecipes;
     if (this.tags.length != 0) {
       for (const tag of this.tags) {
@@ -66,13 +66,14 @@ export class Search {
         this.list = [];
         for(const recipe of allRecipes){
           switch (tag.type) {
-            case "ingredient":
+            case "ingredient":             //-----change with for of-----
               {
-                recipe.ingredients.map((ingredient) => {
+               // recipe.ingredients.forEach((ingredient) => {
+                for (const ingredient of recipe.ingredients) {
                   if (ingredient.ingredient.toLowerCase() == tag.name) {
                     this.list.push(recipe);
                   }
-                });
+                }
               }
               break;
             case "appliance":
@@ -80,11 +81,12 @@ export class Search {
                 this.list.push(recipe);
               break;
             case "ustensil": {
-              recipe.ustensils.map((ustensil) => {
+             //recipe.ustensils.forEach((ustensil) => {
+              for (const ustensil of recipe.ustensils) {
                 if (ustensil.toLowerCase() == tag.name) {
                   this.list.push(recipe);
                 }
-              });
+              }
             }
           }
         }
