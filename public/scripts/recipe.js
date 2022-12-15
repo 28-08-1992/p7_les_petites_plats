@@ -47,13 +47,14 @@ export class Recipe {
 // fonction pour afficher les ingredients de la recette//
   static putIngredientsInUlList = (ingredients) => {
     let result = `<ul>`;
-    for (let i = 0; i < ingredients.length; i++) {
+    ingredients.forEach(element => {
+    
       if (
-        ingredients[i].quantity != undefined &&
-        ingredients[i].unit != undefined
+        element.quantity != undefined &&
+        element.unit != undefined
       ) {
-        result += `<li><span class="h5">${ingredients[i].ingredient}:</span><span class="h6"> ${ingredients[i].quantity}`;
-        switch (ingredients[i].unit) {
+        result += `<li><span class="h5">${element.ingredient}:</span><span class="h6"> ${element.quantity}`;
+        switch (element.unit) {
           case "grammes":
             result += `g</span></li>`;
             break;
@@ -61,15 +62,15 @@ export class Recipe {
             result += ` c.a.s</span></li>`;
             break;
           default:
-            result += ` ${ingredients[i].unit}</span></li>`;
+            result += ` ${element.unit}</span></li>`;
             break;
         }
-      } else if (ingredients[i].quantity != undefined) {
-        result += `<li><span class="h5">${ingredients[i].ingredient}:</span><span class="h6"> ${ingredients[i].quantity}</span></li>`;
+      } else if (element.quantity != undefined) {
+        result += `<li><span class="h5">${element.ingredient}:</span><span class="h6"> ${element.quantity}</span></li>`;
       } else {
-        result += `<li><span class="h5">${ingredients[i].ingredient}</span></li>`;
+        result += `<li><span class="h5">${element.ingredient}</span></li>`;
       }
-    }
+    });
     result += `</ul>`;
     return result;
   };

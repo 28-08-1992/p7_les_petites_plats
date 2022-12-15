@@ -47,8 +47,8 @@ export class Tag{
             tags.forEach(tag =>{
                 let recipeFilter = [];
                 if(tag.classList.contains("bg-primary")){
-                    recipeFiltered.forEach(recipe =>{
-                        recipe.ingredients.forEach(ingredient =>{
+                    recipeFiltered.map(recipe =>{
+                        recipe.ingredients.filter(ingredient =>{
                             if(ingredient.ingredient.toLowerCase().match(tag.innerText)){
                                 recipeFilter.push(recipe);
                             }
@@ -56,15 +56,15 @@ export class Tag{
                     });
                 }
                 if(tag.classList.contains("bg-success")){
-                    recipeFiltered.forEach(recipe =>{
+                    recipeFiltered.map(recipe =>{
                         if(recipe.appliance.toLowerCase().match(tag.innerText)){
                             recipeFilter.push(recipe);
                         }
                     });
                 }
                 if(tag.classList.contains("bg-danger")){
-                    recipeFiltered.forEach(recipe =>{
-                        recipe.ustensils.forEach(ustensil =>{
+                    recipeFiltered.map(recipe =>{
+                        recipe.ustensils.filter(ustensil =>{
                             if(ustensil.toLowerCase().match(tag.innerText)){
                                 recipeFilter.push(recipe);
                             }
@@ -74,7 +74,7 @@ export class Tag{
                 recipeFiltered = recipeFilter;
                 Recipe.flushRecipesInDOM();
                 search.actualList = recipeFiltered;
-                recipeFiltered.forEach(recipe => Recipe.displayRecipe(recipe));
+                recipeFiltered.map(recipe => Recipe.displayRecipe(recipe));
             });
         }
     }
