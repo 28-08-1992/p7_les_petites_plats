@@ -93,7 +93,8 @@ export class Input {
         this.ul.innerHTML = ``;
         this.dropdown.appendChild(this.ul);
         this.ul.classList.add(`${this.type}s__ul`)
-        list.forEach(element => {
+        //list.forEach(element => {---change forEach with for----
+        for (const element of list) {
             const li = document.createElement("li");
             li.classList.add(`${this.background}`, `${this.type}`, `text-white`);
             li.innerHTML = element;
@@ -102,7 +103,7 @@ export class Input {
                 search.addTag(this.type, element);
                 this.createList(this.refreshList());
             });
-        });
+        }
     }
 
     showList = (list) => {
@@ -113,11 +114,12 @@ export class Input {
     searchElement = (e) =>{
         let filter = [];
         let list = this.refreshList();
-        list.forEach(element => {
+        //list.forEach(element => {---change forEach with for----
+        for (const element of list) {
             if(element.includes(e.target.value)){
                 filter.push(element);
             }
-        });
+        }
         this.showList(filter);
     }
 
