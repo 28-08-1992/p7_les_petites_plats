@@ -43,39 +43,48 @@ export class Tag{
         if(tags.length == 0) {
             Recipe.flushRecipesInDOM();
             Recipe.displayAllRecipes();
-        } else {
-            tags.forEach(tag =>{
+        } else {                       //------------change forEach with for---------
+            //tags.forEach(tag =>{
+            for (const tag of tags) {   
                 let recipeFilter = [];
                 if(tag.classList.contains("bg-primary")){
-                    recipeFiltered.forEach(recipe =>{
-                        recipe.ingredients.forEach(ingredient =>{
+                    //recipeFiltered.forEach(recipe =>{
+                    for (const recipe of recipeFiltered) {    
+                        //recipe.ingredients.forEach(ingredient =>{
+                        for (const ingredient of recipe.ingredients) {    
                             if(ingredient.ingredient.toLowerCase().match(tag.innerText)){
                                 recipeFilter.push(recipe);
                             }
-                        });
-                    });
+                        }
+                    }
                 }
                 if(tag.classList.contains("bg-success")){
-                    recipeFiltered.forEach(recipe =>{
+                   // recipeFiltered.forEach(recipe =>{
+                    for (const recipe of recipeFiltered) {
                         if(recipe.appliance.toLowerCase().match(tag.innerText)){
                             recipeFilter.push(recipe);
                         }
-                    });
+                    }
                 }
                 if(tag.classList.contains("bg-danger")){
-                    recipeFiltered.forEach(recipe =>{
-                        recipe.ustensils.forEach(ustensil =>{
+                    //recipeFiltered.forEach(recipe =>{
+                    for (const recipe of recipeFiltered) {    
+                       // recipe.ustensils.forEach(ustensil =>{
+                        for (const ustensil of recipe.ustensils) { 
                             if(ustensil.toLowerCase().match(tag.innerText)){
                                 recipeFilter.push(recipe);
                             }
-                        });
-                    });
+                        }
+                    }
                 }
                 recipeFiltered = recipeFilter;
                 Recipe.flushRecipesInDOM();
                 search.actualList = recipeFiltered;
-                recipeFiltered.forEach(recipe => Recipe.displayRecipe(recipe));
-            });
+                //recipeFiltered.forEach(recipe => Recipe.displayRecipe(recipe));
+                for (const recipe of recipeFiltered) {
+                    Recipe.displayRecipe(recipe); 
+                }
+            }
         }
     }
 }

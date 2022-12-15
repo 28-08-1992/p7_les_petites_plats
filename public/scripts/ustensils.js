@@ -12,9 +12,10 @@ export class Ustensils extends Input{
         this.list = search.actualList;
         let refreshedList = [];
         for(let i=0; i< this.list.length ;i++){
-            this.list[i].ustensils.forEach(ustensil => {
+            //this.list[i].ustensils.forEach(ustensil => {
+            for (const ustensil of this.list[i].ustensils) {   
                 if(!refreshedList.includes(ustensil.toLowerCase())) refreshedList.push(ustensil.toLowerCase());
-            });
+            }
         }
         return refreshedList;
     }

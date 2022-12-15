@@ -25,8 +25,7 @@ export class Search {
       let list = [...this.list];
       this.list = [];
       Recipe.flushRecipesInDOM();
-      // for(const recipe of list){---------change with forEach-----------
-      list.forEach((recipe) => {
+      for(const recipe of list) {
         if (
           recipe.name.toLowerCase().includes(inputTextValue.toLowerCase()) ||
           recipe.description
@@ -36,8 +35,7 @@ export class Search {
           this.list.push(recipe);
           Recipe.displayRecipe(recipe);
         } else {
-          //for(const ingredient of recipe.ingredients){----change with forEach-------
-          recipe.ingredients.forEach((ingredient) => {
+          for(const ingredient of recipe.ingredients) {
             if (
               ingredient.ingredient
                 .toLowerCase()
@@ -48,9 +46,9 @@ export class Search {
               this.list.push(recipe);
               Recipe.displayRecipe(recipe);
             }
-          });
+          }
         }
-      });
+      }
     } else {
       this.filterTag();
     }
@@ -62,13 +60,11 @@ export class Search {
   filterTag() {
     this.list = Recipe.allRecipes;
     if (this.tags.length != 0) {
-      //for (const tag of this.tags) {---------change with forEach-----------
-        this.tags.forEach(tag => {
+      for (const tag of this.tags) {
 
         let allRecipes = [...this.list];
         this.list = [];
-        //for(const recipe of allRecipes){--------change with forEach-----------
-        allRecipes.forEach((recipe) => {
+        for(const recipe of allRecipes){
           switch (tag.type) {
             case "ingredient":
               {
@@ -91,9 +87,9 @@ export class Search {
               });
             }
           }
-        });
+        }
         allRecipes = [...this.list];
-      });
+      }
     }
     Recipe.flushRecipesInDOM();
     Recipe.displayRecipes(this.list);
