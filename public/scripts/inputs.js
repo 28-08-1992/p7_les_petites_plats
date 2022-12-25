@@ -2,42 +2,51 @@ import { search } from "./app.js";
 
 
 export class Input {
+  constructor(name, type, background) {
+    this.name = name;
+    this.type = type;
+    this.background = background;
+    this.inputGroup = document.createElement(`div`);
+    this.inputText = document.createElement(`input`);
+    this.spanChevron = document.createElement(`span`);
+    this.iconChevron = document.createElement(`i`);
+    this.dropdown = document.createElement("div");
+    this.ul = document.createElement("ul");
+    this.createInput(`${name}s`, `${type}s`, background);
+  }
 
-    constructor(name, type, background){
-        this.name = name;
-        this.type = type;
-        this.background = background;
-        this.inputGroup = document.createElement(`div`);
-        this.inputText = document.createElement(`input`);
-        this.spanChevron = document.createElement(`span`);
-        this.iconChevron = document.createElement(`i`);
-        this.dropdown = document.createElement("div");
-        this.ul = document.createElement("ul");
-        this.createInput(`${name}s`, `${type}s`, background);
-    }
-
-    createInput = (name, type, background) =>{
-        this.inputGroup.classList.add(`input-group`, `mb-3`, type, `rounded`);
-        document.querySelector(`.container__inputs`).appendChild(this.inputGroup);
-        this.inputText.classList.add(`form-control`, background, `${type}__text-input`, `text-white`);
-        this.inputText.setAttribute(`type`, `text`);
-        this.inputGroup.appendChild(this.inputText);
-        this.spanChevron.classList.add(`input-group-text`, background, `chevron-${type}`, `rounded-right`);
-        this.inputGroup.appendChild(this.spanChevron);
-        this.iconChevron.classList.add(`bi`, `bi-chevron-down`, `text-white`);
-        this.spanChevron.appendChild(this.iconChevron);
-        this.inputText.setAttribute(`aria-label`, name);
-        this.inputText.setAttribute(`placeholder`, name);
-        this.spanChevron.addEventListener(`click`, this.switchToLargeInput);
-        this.createDropdown();
-        this.inputText.addEventListener(`input`, e =>{
-            if(e.target.value.length > 0){
-                this.searchElement(e);
-            } else {
-                this.hideList();
-            }
-         });
-    }
+  createInput = (name, type, background) => {
+    this.inputGroup.classList.add(`input-group`, `mb-3`, type, `rounded`);
+    document.querySelector(`.container__inputs`).appendChild(this.inputGroup);
+    this.inputText.classList.add(
+      `form-control`,
+      background,
+      `${type}__text-input`,
+      `text-white`
+    );
+    this.inputText.setAttribute(`type`, `text`);
+    this.inputGroup.appendChild(this.inputText);
+    this.spanChevron.classList.add(
+      `input-group-text`,
+      background,
+      `chevron-${type}`,
+      `rounded-right`
+    );
+    this.inputGroup.appendChild(this.spanChevron);
+    this.iconChevron.classList.add(`bi`, `bi-chevron-down`, `text-white`);
+    this.spanChevron.appendChild(this.iconChevron);
+    this.inputText.setAttribute(`aria-label`, name);
+    this.inputText.setAttribute(`placeholder`, name);
+    this.spanChevron.addEventListener(`click`, this.switchToLargeInput);
+    this.createDropdown();
+    this.inputText.addEventListener(`input`, (e) => {
+      if (e.target.value.length > 0) {
+        this.searchElement(e);
+      } else {
+        this.hideList();
+      }
+    });
+  };
 
     switchToLargeInput = () =>{
         this.inputGroup.classList.add(`${this.type}s-lg`);
@@ -111,17 +120,16 @@ export class Input {
         this.dropdown.style.display = "flex";
     }
 
-    searchElement = (e) =>{
-        let filter = [];
-        let list = this.refreshList();
-        //list.forEach(element => {---change forEach with for----
-        for (const element of list) {
-            if(element.includes(e.target.value)){
-                filter.push(element);
-            }
-        }
-        this.showList(filter);
-    }
+  searchElement = (e) => {
+    let filter = [];
+    let list = this.refreshList(); //la liste de tous les ingredients ou bien les appareils
+    list.filter((element) => {
+      if (element.includes(e.target.value)) {
+        filter.push(element);//filtré les elements par rapport la valeur q'on à entrée
+      }
+    });
+    this.showList(filter);
+  };
 
     hideList = () =>{
         this.dropdown.style.display = "none";
