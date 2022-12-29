@@ -15,6 +15,8 @@ export class Tag{
     }
 
     addTag = () =>{
+        const allTag = document.querySelectorAll(".tag");
+       
         const btnTag = document.createElement("span");
         btnTag.classList.add("text-white","rounded", "tag");
         switch(this.type){
@@ -26,10 +28,23 @@ export class Tag{
             break; 
         }
         btnTag.innerHTML = `<span class="tag__text">${this.tag}</span><i class="bi bi-x-circle"></i>`;
-        this.container.appendChild(btnTag);
-        btnTag.addEventListener("click", e =>{
-            this.deleteTag(btnTag);
-        });
+        let existe = false;
+        if (allTag.length != 0) {
+           for ( let tag of allTag) {
+                if (tag.textContent == btnTag.textContent){
+                existe = true;
+                break
+                }
+            } 
+          
+        }
+        if ( existe == false) {
+            this.container.appendChild(btnTag);
+            btnTag.addEventListener("click", e =>{
+                this.deleteTag(btnTag);
+            });
+        }
+       
     }
 
     deleteTag = tag =>{
@@ -43,39 +58,48 @@ export class Tag{
         if(tags.length == 0) {
             Recipe.flushRecipesInDOM();
             Recipe.displayAllRecipes();
-        } else {
-            tags.forEach(tag =>{
+        } else {                       //------------change forEach with for---------
+            //tags.forEach(tag =>{
+            for (const tag of tags) {   
                 let recipeFilter = [];
                 if(tag.classList.contains("bg-primary")){
-                    recipeFiltered.map(recipe =>{
-                        recipe.ingredients.filter(ingredient =>{
+                    //recipeFiltered.forEach(recipe =>{
+                    for (const recipe of recipeFiltered) {    
+                        //recipe.ingredients.forEach(ingredient =>{
+                        for (const ingredient of recipe.ingredients) {    
                             if(ingredient.ingredient.toLowerCase().match(tag.innerText)){
                                 recipeFilter.push(recipe);
                             }
-                        });
-                    });
+                        }
+                    }
                 }
                 if(tag.classList.contains("bg-success")){
-                    recipeFiltered.map(recipe =>{
+                   // recipeFiltered.forEach(recipe =>{
+                    for (const recipe of recipeFiltered) {
                         if(recipe.appliance.toLowerCase().match(tag.innerText)){
                             recipeFilter.push(recipe);
                         }
-                    });
+                    }
                 }
                 if(tag.classList.contains("bg-danger")){
-                    recipeFiltered.map(recipe =>{
-                        recipe.ustensils.filter(ustensil =>{
+                    //recipeFiltered.forEach(recipe =>{
+                    for (const recipe of recipeFiltered) {    
+                       // recipe.ustensils.forEach(ustensil =>{
+                        for (const ustensil of recipe.ustensils) { 
                             if(ustensil.toLowerCase().match(tag.innerText)){
                                 recipeFilter.push(recipe);
                             }
-                        });
-                    });
+                        }
+                    }
                 }
                 recipeFiltered = recipeFilter;
                 Recipe.flushRecipesInDOM();
                 search.actualList = recipeFiltered;
-                recipeFiltered.map(recipe => Recipe.displayRecipe(recipe));
-            });
+                //recipeFiltered.forEach(recipe => Recipe.displayRecipe(recipe));
+                for (const recipe of recipeFiltered) {
+                    Recipe.displayRecipe(recipe); 
+                }
+            }
         }
     }
 }
