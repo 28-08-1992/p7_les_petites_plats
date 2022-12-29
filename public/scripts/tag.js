@@ -15,6 +15,8 @@ export class Tag{
     }
 
     addTag = () =>{
+        const allTag = document.querySelectorAll(".tag");
+        console.log(allTag);
         const btnTag = document.createElement("span");
         btnTag.classList.add("text-white","rounded", "tag");
         switch(this.type){
@@ -26,10 +28,23 @@ export class Tag{
             break; 
         }
         btnTag.innerHTML = `<span class="tag__text">${this.tag}</span><i class="bi bi-x-circle"></i>`;
-        this.container.appendChild(btnTag);
-        btnTag.addEventListener("click", e =>{
-            this.deleteTag(btnTag);
-        });
+        let existe = false;
+        if (allTag.length != 0) {
+           for ( let tag of allTag) {
+                if (tag.textContent == btnTag.textContent){
+                existe = true;
+                break
+                }
+            } 
+          
+        }
+        if ( existe == false) {
+            this.container.appendChild(btnTag);
+            btnTag.addEventListener("click", e =>{
+                this.deleteTag(btnTag);
+            });
+        }
+       
     }
 
     deleteTag = tag =>{
